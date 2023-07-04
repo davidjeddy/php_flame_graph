@@ -74,11 +74,9 @@ No configuration needed.
 Generate some traffic
 
 ```sh
-curl --head --location localhost:8080
-curl --head --location localhost:8080
-curl --head --location localhost:8080
-curl --head --location localhost:8080
-curl --head --location localhost:8080
+curl --head "http://localhost:8080/?XDEBUG_TRIGGER=1"
+curl --head "http://localhost:8080/?XDEBUG_TRIGGER=1"
+curl --head "http://localhost:8080/?XDEBUG_TRIGGER=1"
 ```
 
 View the flame graph in a browser at the address ``.

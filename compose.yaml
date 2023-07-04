@@ -1,6 +1,7 @@
 version: '3.8'
 
 # change services.[*].image value as needed for container orchastration solution
+
 services:
     nginx:
         image: docker.io/library/nginx:1.25.1
@@ -18,31 +19,14 @@ services:
         build:
             context: .
             dockerfile: ./services/php/Containerfile
-        # image: docker.io/library/php:8.2-fpm
         networks:
             - internal
         volumes:
             - ./services/php/usr/local/etc/php-fpm.d/php_flame_graph.conf:/usr/local/etc/php-fpm.d/php_flame_graph.conf
+            - ./services/php/usr/local/etc/php/conf.d/x-debug.ini:/usr/local/etc/php/conf.d/x-debug.ini
+            - ./services/php/usr/local/etc/php/xdebug/:/usr/local/etc/php/xdebug/
             - ./services/php/var/log/php/:/var/log/php/
             - ./services/shared/var/www/html/:/var/www/html/
 networks:
   internal:
     driver: bridge
-
-    # php:
-    #     build:
-    #         context: .
-    #         dockerfile: ./containers/php/Dockerfile
-    #         args:
-    #             # Available [trace|debug|profile]. Use Comma separated available values for multiple mode
-    #             # Use "off" to disable xdebug
-    #             - XDEBUG_MODES=debug,trace
-    #             # Set the following values to overwrite the existing settings.
-    #             # Uncomment the following line and change value.
-    #             # - REMOTE_HOST=host.docker.internal # Host machine IP
-    #             # - REMOTE_PORT=9003 # IDE/Editor's listener port
-    #             # - IDE_KEY=docker # IDE's filter/listener key
-                # xdebug.trace_output_name = "trace.%c-%t"
-                # xdebug.trace_format = 0
-                # xdebug.collect_return = true
-                # xdebug.trace_options = 1
