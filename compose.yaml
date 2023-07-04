@@ -15,7 +15,10 @@ services:
         links:
             - php
     php:
-        image: docker.io/library/php:8.2-fpm
+        build:
+            context: .
+            dockerfile: ./services/php/Containerfile
+        # image: docker.io/library/php:8.2-fpm
         networks:
             - internal
         volumes:
