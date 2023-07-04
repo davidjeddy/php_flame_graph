@@ -1,21 +1,29 @@
 version: '3.8'
 
+# change services.[name].image value as needed for container orchastration solution
 services:
     nginx:
-        image: nginx:1.25.1
-        # ports:
-        #     - 80:80
-        # volumes:
-        #     - .:/var/www/html
-        #     - ./containers/nginx/default.conf:/etc/nginx/conf.d/default.conf
-        # links:
-        #     - php
+        image: docker.io/library/nginx:1.25.1
+        networks:
+            - internal
+        ports:
+            - 8080:80
+        volumes:
+            - ./etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+            - ./var/log/nginx/:/var/log/nginx/
+            - ./var/www/html/:/var/www/html/
+        links:
+            - php
     php:
-        image: php:8.2-fpm
-        # ports:
-        #     - 9000:9000
-        # volumes:
-        #     - .:/var/www/html
+        image: docker.io/library/php:8.2-fpm
+        networks:
+            - internal
+        volumes:
+            - ./var/log/php/:/var/log/php/
+            - ./var/www/html/:/var/www/html/
+networks:
+  internal:
+    driver: bridge
 
     # php:
     #     build:

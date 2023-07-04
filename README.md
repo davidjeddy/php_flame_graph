@@ -15,11 +15,12 @@ Project implementing flame graph visualization for PHP via xDebug traces.
     - [Development Documentation](#development-documentation)
   - [Requirements](#requirements)
   - [How to](#how-to)
-    - [Obtain](#obtain)
+    - [Acquire](#acquire)
     - [Build](#build)
-    - [Run](#run)
+    - [Configure](#configure)
+    - [Execute](#execute)
     - [View](#view)
-    - [Stop](#stop)
+    - [Terminate](#terminate)
   - [Development Resources](#development-resources)
   - [Versioning](#versioning)
   - [Contributors](#contributors)
@@ -42,28 +43,35 @@ Please see [DEVDOCS.md](./DEVDOCS.md).
 ## Requirements
 
 - Linux/Unix shell
-- container orchestration solution
-  - `podman` and `podman-compose` recommended
+- container orchestration solution (Docker, Podman, ContainerD)
+  - [podman](https://podman.io/) and [podman-compose](https://github.com/containers/podman-compose) recommended
 
 ## How to
 
-### Obtain
+### Acquire
 
 ```sh
-cd /path/to/projects
-git clone https://github.com/davidjeddy/php_flame_graph.git
+cd /path/to/your/projects
+mkdir -p github.com/davidjeddy/php_flame_graph
+cd github.com/davidjeddy/php_flame_graph
+git clone https://github.com/davidjeddy/php_flame_graph.git .
+# (As needed)
+# If a Podman machine is already running we need to restart to enable the volume mounts
+podman machine stop; podman machine start) || true
 ```
 
 ### Build
 
-```sh
-podman build containers/php/Containerfile
-```
+Container image building is executed as part of the initial stack startup.
 
-### Run
+### Configure
+
+No configuration needed.
+
+### Execute
 
 ```sh
-podman-compose -f compose.yaml up
+podman-compose up
 ```
 
 ### View
@@ -73,11 +81,12 @@ podman-compose -f compose.yaml up
 - Open a new tab
 - View `localhost:80?XDEBUG_TOKEN=true`
 
-### Stop
+### Terminate
 
 ```sh
-podman-compose -f compose.yaml down
+podman-compose down
 ```
+
 ## Development Resources
 
 - https://gist.github.com/xameeramir/a5cb675fb6a6a64098365e89a239541d
