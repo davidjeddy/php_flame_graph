@@ -54,9 +54,12 @@ cd /path/to/your/projects
 mkdir -p github.com/davidjeddy/php_flame_graph
 cd github.com/davidjeddy/php_flame_graph
 git clone https://github.com/davidjeddy/php_flame_graph.git .
+git clone https://github.com/brendangregg/FlameGraph.git brendangregg/FlameGraph
 # (As needed)
 # If a Podman machine is already running we need to restart to enable the volume mounts
-podman machine stop; podman machine start) || true
+podman machine stop || true
+podman machine start
+podman-compose up -d
 ```
 
 ### Build
@@ -79,7 +82,15 @@ curl --head "http://localhost:8080/?XDEBUG_TRIGGER=1"
 curl --head "http://localhost:8080/?XDEBUG_TRIGGER=1"
 ```
 
-View the flame graph in a browser at the address ``.
+Due to permissions problems between container user and Xdebug we can not volume mount the container directory to the host. So then we copy the traces from the container to the host
+
+```sh
+podman cp php_flame_graph_php_1:/tmp ./services/php
+```
+
+Now in ./services/php/tmp we should have a list of traces.
+
+![xDebug traces](docs/images/xdebug_traces.png)
 
 ### Terminate
 

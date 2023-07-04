@@ -22,11 +22,12 @@ services:
         networks:
             - internal
         volumes:
+            # - ./services/php/tmp/:/tmp/
             - ./services/php/usr/local/etc/php-fpm.d/php_flame_graph.conf:/usr/local/etc/php-fpm.d/php_flame_graph.conf
-            - ./services/php/usr/local/etc/php/conf.d/x-debug.ini:/usr/local/etc/php/conf.d/x-debug.ini
-            - ./services/php/usr/local/etc/php/xdebug/:/usr/local/etc/php/xdebug/
+            - ./services/php/usr/local/etc/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
             - ./services/php/var/log/php/:/var/log/php/
             - ./services/shared/var/www/html/:/var/www/html/
+        user: root
 networks:
   internal:
     driver: bridge
