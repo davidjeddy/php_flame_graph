@@ -9,9 +9,9 @@ services:
         ports:
             - 8080:80
         volumes:
-            - ./etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
-            - ./var/log/nginx/:/var/log/nginx/
-            - ./var/www/html/:/var/www/html/
+            - ./services/nginx/etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+            - ./services/nginx/var/log/nginx/:/var/log/nginx/
+            - ./services/shared/var/www/html/:/var/www/html/
         links:
             - php
     php:
@@ -19,8 +19,8 @@ services:
         networks:
             - internal
         volumes:
-            - ./var/log/php/:/var/log/php/
-            - ./var/www/html/:/var/www/html/
+            - ./services/php/var/log/:/var/log/
+            - ./services/shared/var/www/html/:/var/www/html/
 networks:
   internal:
     driver: bridge
@@ -42,10 +42,3 @@ networks:
                 # xdebug.trace_format = 0
                 # xdebug.collect_return = true
                 # xdebug.trace_options = 1
-    #     volumes:
-    #         - .:/var/www/html
-    #         # Use sudo if required.
-    #         # RUN: mkdir -p /tmp/xdebug
-    #         # RUN: chmod -R 777 /tmp/xdebug
-    #         # Log files will be written in this directory
-    #         - /tmp/xdebug:/tmp/xdebug

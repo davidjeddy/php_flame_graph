@@ -19,7 +19,6 @@ Project implementing flame graph visualization for PHP via xDebug traces.
     - [Build](#build)
     - [Configure](#configure)
     - [Execute](#execute)
-    - [View](#view)
     - [Terminate](#terminate)
   - [Development Resources](#development-resources)
   - [Versioning](#versioning)
@@ -62,7 +61,9 @@ podman machine stop; podman machine start) || true
 
 ### Build
 
-Container image building is executed as part of the initial stack startup.
+```sh
+podman-compose up -d
+```
 
 ### Configure
 
@@ -70,16 +71,17 @@ No configuration needed.
 
 ### Execute
 
+Generate some traffic
+
 ```sh
-podman-compose up
+curl --head --location localhost:8080
+curl --head --location localhost:8080
+curl --head --location localhost:8080
+curl --head --location localhost:8080
+curl --head --location localhost:8080
 ```
 
-### View
-
-- Open web browser
-- View `localhost:80?XDEBUG_TOKEN=true`
-- Open a new tab
-- View `localhost:80?XDEBUG_TOKEN=true`
+View the flame graph in a browser at the address ``.
 
 ### Terminate
 
