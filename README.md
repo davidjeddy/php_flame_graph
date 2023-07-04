@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Example project implementing flame graphs visualization for PHP via xDebug traces.
+Project implementing flame graph visualization for PHP via xDebug traces.
 
 ## Table of Contents
 
@@ -20,6 +20,7 @@ Example project implementing flame graphs visualization for PHP via xDebug trace
     - [Run](#run)
     - [View](#view)
     - [Stop](#stop)
+  - [Development Resources](#development-resources)
   - [Versioning](#versioning)
   - [Contributors](#contributors)
   - [Additional Information](#additional-information)
@@ -42,26 +43,27 @@ Please see [DEVDOCS.md](./DEVDOCS.md).
 
 - Linux/Unix shell
 - container orchestration solution
-  - Podman recommended
+  - `podman` and `podman-compose` recommended
 
 ## How to
 
 ### Obtain
 
 ```sh
-git clone ...
+cd /path/to/projects
+git clone https://github.com/davidjeddy/php_flame_graph.git
 ```
 
 ### Build
 
 ```sh
-podman build php/ContainerFile
+podman build containers/php/Containerfile
 ```
 
 ### Run
 
 ```sh
-podman run compose.yml
+podman-compose -f compose.yaml up
 ```
 
 ### View
@@ -74,8 +76,11 @@ podman run compose.yml
 ### Stop
 
 ```sh
-podman stop compose.yml
+podman-compose -f compose.yaml down
 ```
+## Development Resources
+
+- https://gist.github.com/xameeramir/a5cb675fb6a6a64098365e89a239541d
 
 ## Versioning
 
