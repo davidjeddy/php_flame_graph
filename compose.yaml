@@ -1,6 +1,6 @@
 version: '3.8'
 
-# change services.[name].image value as needed for container orchastration solution
+# change services.[*].image value as needed for container orchastration solution
 services:
     nginx:
         image: docker.io/library/nginx:1.25.1
@@ -19,7 +19,8 @@ services:
         networks:
             - internal
         volumes:
-            - ./services/php/var/log/:/var/log/
+            - ./services/php/usr/local/etc/php-fpm.d/php_flame_graph.conf:/usr/local/etc/php-fpm.d/php_flame_graph.conf
+            - ./services/php/var/log/php/:/var/log/php/
             - ./services/shared/var/www/html/:/var/www/html/
 networks:
   internal:
