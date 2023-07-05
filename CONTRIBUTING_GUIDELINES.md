@@ -22,12 +22,8 @@
 
 ### **Do you have questions about the source code?**
 
-- Ask any question about how to use the code base via the following forms of communication:
-
-  - [Email]()
-  - [Gitter]()
-  - [Slack]()
+- Ask any question about how to use the code base via the issue tracker.
 
 ### **Do you want to contribute to the documentation?**
 
-- Please read the [REQUEST](./REQUEST.md).
+- Submit a `Pull Request` for review.

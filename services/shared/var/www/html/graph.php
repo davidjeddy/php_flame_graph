@@ -42,7 +42,7 @@
                 if (!is_readable($file)) { echo "cannot read input file"; return; }
 
                 // passthru(__DIR__.'/brendangregg/FlameGraph/stackcollapse-xdebug.php '.$file.' | '.__DIR__.'/brendangregg/FlameGraph/flamegraph.pl');
-                passthru(__DIR__.'/brendangregg/FlameGraph/stackcollapse-xdebug.php');
+                // passthru(__DIR__.'/brendangregg/FlameGraph/stackcollapse-xdebug.php');
                 // passthru(__DIR__.'/brendangregg/FlameGraph/stackcollapse-xdebug.php '.$file.' > /tmp/xdebug_output.fg');
             }
         ?>
