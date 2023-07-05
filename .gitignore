@@ -479,5 +479,4 @@ composer.lock
 **/.keep
 
 ##### Ignore sub-projects
-brendangregg/FlameGraph
-services/php/tmp
+services/shared/var/www/html/brendangregg
