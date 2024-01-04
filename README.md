@@ -16,11 +16,10 @@ Project implementing flame graph visualization for PHP via xDebug traces.
   - [Requirements](#requirements)
   - [How to](#how-to)
     - [Acquire](#acquire)
-    - [Build](#build)
     - [Configure](#configure)
     - [Execute](#execute)
+    - [Update](#update)
     - [Terminate](#terminate)
-  - [Development Resources](#development-resources)
   - [Versioning](#versioning)
   - [Contributors](#contributors)
   - [Additional Information](#additional-information)
@@ -51,80 +50,58 @@ Please see [DEVDOCS.md](./DEVDOCS.md).
 
 ```sh
 cd /path/to/your/projects
-mkdir -p github.com/davidjeddy/php_flame_graph
-cd github.com/davidjeddy/php_flame_graph
 git clone https://github.com/davidjeddy/php_flame_graph.git .
+cd php_flame_graph
 git clone https://github.com/brendangregg/FlameGraph.git ./services/shared/var/www/html/brendangregg/FlameGraph
-# (As needed)
-# If a Podman machine is already running we need to restart to enable the volume mounts
-podman machine stop || true
-podman machine start
-podman-compose up -d
-```
-
-### Build
-
-```sh
-podman-compose up -d
 ```
 
 ### Configure
 
-No configuration needed.
+```sh
+# (As needed)
+# If a Podman machine is already running we need to restart to enable the volume mounts
+podman machine stop || true
+podman machine start
+```
 
 ### Execute
 
-Generate some traffic
+Start example service.
 
 ```sh
-# request
-curl --head "http://localhost:8080/?XDEBUG_TRIGGER=1"
-
-# response
-HTTP/1.1 200 OK
-Server: nginx/1.25.1
-Date: Tue, 04 Jul 2023 19:21:26 GMT
-Content-Type: text/html; charset=UTF-8
-Connection: keep-alive
-X-Powered-By: PHP/8.2.7
-X-Xdebug-Profile-Filename: /tmp/xdebug.profilel.2373089536-1688498486
-
-# request
-curl --head "http://localhost:8080/?XDEBUG_TRIGGER=1"
-
-# response
-HTTP/1.1 200 OK
-Server: nginx/1.25.1
-Date: Tue, 04 Jul 2023 19:21:27 GMT
-Content-Type: text/html; charset=UTF-8
-Connection: keep-alive
-X-Powered-By: PHP/8.2.7
-X-Xdebug-Profile-Filename: /tmp/xdebug.profilel.2373089536-1688498487
-
-# request
-curl --head "http://localhost:8080/?XDEBUG_TRIGGER=1"
-
-# response
-HTTP/1.1 200 OK
-Server: nginx/1.25.1
-Date: Tue, 04 Jul 2023 19:21:28 GMT
-Content-Type: text/html; charset=UTF-8
-Connection: keep-alive
-X-Powered-By: PHP/8.2.7
-X-Xdebug-Profile-Filename: /tmp/xdebug.profilel.2373089536-1688498488
+podman build ./services/php/
+podman-compose up -d
+podman container ls
 ```
 
-Now we can view the traces by opening the browser and visiting `http://localhost:8080/graph.php`.
+Generate 10 requests.
+
+```sh
+for i in {1..10}
+do
+  curl --head "http://localhost:8080/?XDEBUG_TRIGGER=1"
+done
+```
+
+Finally, open a browser and visit `http://localhost:8080/graph.php` to view the output
+
+### Update
+
+```sh
+cd /path/to/your/projects
+git pull origin --force
+cd  ./services/shared/var/www/html/brendangregg/FlameGraph
+git pull origin --force
+```
 
 ### Terminate
 
 ```sh
 podman-compose down
+podman container rm php_flame_graph_nginx_1 || true
+podman container rm php_flame_graph_php_1 || true
+podman container ls -a | grep php_flame
 ```
-
-## Development Resources
-
-- https://gist.github.com/xameeramir/a5cb675fb6a6a64098365e89a239541d
 
 ## Versioning
 
