@@ -2,14 +2,15 @@
 
 ## Purpose
 
-Project implementing flame graph visualization for PHP via xDebug traces.
+Flame graph visualization for [PHP](https://github.com/php) using [xDebug](https://github.com/xdebug/xdebug) and [FlameGraph](https://github.com/brendangregg/FlameGraph).
 
 ## Table of Contents
 
 - [PHP Flame Graphs](#php-flame-graphs)
   - [Purpose](#purpose)
   - [Table of Contents](#table-of-contents)
-  - [Contributing](#contributing)
+  - [Process](#process)
+  - [Documentation](#documentation)
     - [Code of Conduct](#code-of-conduct)
     - [Contributing Guidelines](#contributing-guidelines)
     - [Development Documentation](#development-documentation)
@@ -24,7 +25,13 @@ Project implementing flame graph visualization for PHP via xDebug traces.
   - [Contributors](#contributors)
   - [Additional Information](#additional-information)
 
-## Contributing
+## Process
+
+- Request -> Nginx -> PHP-FPM -> xDebug -> create stack sample -> response
+
+- Load FlameGraph -> select stack -> view trace
+
+## Documentation
 
 ### Code of Conduct
 
@@ -36,12 +43,11 @@ Please see [CONTRIBUTING_GUIDELINES.md](./CONTRIBUTING_GUIDELINES.md).
 
 ### Development Documentation
 
-Please see [DEVDOCS.md](./DEVDOCS.md).
+Please see [DEVELOPMENT.md](./DEVELOPMENT.md).
 
 ## Requirements
 
-- Linux/Unix shell
-- container orchestration solution (Docker, Podman, ContainerD)
+- Container orchestration solution (Docker, Podman, ContainerD)
   - [podman](https://podman.io/) and [podman-compose](https://github.com/containers/podman-compose) recommended
 
 ## How to
@@ -57,9 +63,9 @@ git clone https://github.com/brendangregg/FlameGraph.git ./services/shared/var/w
 
 ### Configure
 
+(As needed) If a Podman machine is already running we need to restart to enable the volume mounts
+
 ```sh
-# (As needed)
-# If a Podman machine is already running we need to restart to enable the volume mounts
 podman machine stop || true
 podman machine start
 ```
@@ -69,9 +75,8 @@ podman machine start
 Start example service.
 
 ```sh
-podman build ./services/php/
 podman-compose up -d
-podman container ls
+podman container ls -a | grep php_flame
 ```
 
 Generate 10 requests.
@@ -92,6 +97,7 @@ cd /path/to/your/projects
 git pull origin --force
 cd  ./services/shared/var/www/html/brendangregg/FlameGraph
 git pull origin --force
+cd ../../../../../../../
 ```
 
 ### Terminate

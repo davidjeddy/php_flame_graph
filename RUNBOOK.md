@@ -18,36 +18,7 @@ Process to correct the error.
 
 **Error**
 
-
-The following steps are executed on the container host.
-
-```sh
-cd /path/to/project/root
-
-# Clone upstream project
-# REMOVE after iterating on php image build
-git clone https://github.com/brendangregg/FlameGraph.git ./services/shared/var/www/html/brendangregg/FlameGraph
-
-# (optional) If OS != Linux, power cycle container vm 
-podman machine stop && podman machine start
-
-# Build the PHP image
-podman-compose build
-
-# restart all running containers, then list running containers
-podman-compose down && podman-compose up -d && podman ps
-
-# copy the updated stackcollapse-xdebug-v3.php into the php container
-podman cp ./services/php/tmp php_flame_graph_php_1:/
-
-# Generate some traces
-## TODO 502 bad gateway
-time && curl --head "http://localhost:8080/?XDEBUG_TRIGGER=1"
-time && curl --head "http://localhost:8080/?XDEBUG_TRIGGER=1"
-time && curl --head "http://localhost:8080/?XDEBUG_TRIGGER=1"
-```
-
-Shell into the running php container.
+Shell into the running `php` container.
 
 ```sh
 podman exec -it php_flame_graph_php_1 bash
@@ -56,9 +27,6 @@ podman exec -it php_flame_graph_php_1 bash
 These steps are executed inside the container.
 
 ```sh
-# PHP xDebug major version. Do we want to test process the v2 or v3 sample trace?
-export XDV=3 && printenv | sort
-
 # change ownership of the sample
 chown www-data:www-data /tmp/ -R && ls -la /tmp
 

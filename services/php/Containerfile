@@ -1,3 +1,10 @@
-FROM docker.io/library/php:8.2-fpm
+FROM docker.io/library/php:8.3-fpm
 
-RUN pecl install xdebug-3.2.1 && docker-php-ext-enable xdebug
+# set xDebug to version 3
+ENV XDV=3
+
+RUN pecl install \
+  xdebug-3.3.1
+
+RUN docker-php-ext-enable \
+  xdebug

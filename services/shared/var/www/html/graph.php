@@ -11,10 +11,10 @@
     </head>
     <body>
         <?php
-          // if (!empty($_GET)) { echo '_GET:'; var_dump($_GET); }
-          // if (!empty($_POST)) { echo '_POST:'; var_dump($_POST); }
+          if (!empty($_GET)) { echo '_GET:'; var_dump($_GET); }
+          if (!empty($_POST)) { echo '_POST:'; var_dump($_POST); }
           if (!empty($_REQUEST)) { echo '_REQUEST:'; var_dump($_REQUEST); }
-          // if (!empty($_SERVER)) { echo '_SERVER:'; var_dump($_SERVER); }
+          if (!empty($_SERVER)) { echo '_SERVER:'; var_dump($_SERVER); }
         ?>
         <h1>XDebug Flame Graph</h1>
         <form method="POST">
@@ -41,9 +41,9 @@
                 if (!file_exists($file)) { echo "input file does not exist"; return; }
                 if (!is_readable($file)) { echo "cannot read input file"; return; }
 
-                // passthru(__DIR__.'/brendangregg/FlameGraph/stackcollapse-xdebug.php '.$file.' | '.__DIR__.'/brendangregg/FlameGraph/flamegraph.pl');
-                // passthru(__DIR__.'/brendangregg/FlameGraph/stackcollapse-xdebug.php');
-                // passthru(__DIR__.'/brendangregg/FlameGraph/stackcollapse-xdebug.php '.$file.' > /tmp/xdebug_output.fg');
+                passthru(__DIR__.'/brendangregg/FlameGraph/stackcollapse-xdebug.php '.$file.' | '.__DIR__.'/brendangregg/FlameGraph/flamegraph.pl');
+                passthru(__DIR__.'/brendangregg/FlameGraph/stackcollapse-xdebug.php');
+                passthru(__DIR__.'/brendangregg/FlameGraph/stackcollapse-xdebug.php '.$file.' > /tmp/xdebug_output.fg');
             }
         ?>
     </body>
