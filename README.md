@@ -56,6 +56,7 @@ Please see [DEVELOPMENT.md](./DEVELOPMENT.md).
 
 - [brendangregg/FlameGraph](https://github.com/brendangregg/FlameGraph)
 - [[Linux] Profiling —visualize program bottleneck with Flamegraph](https://medium.com/@techhara/profiling-visualize-program-bottleneck-with-flamegraph-3e0c5855b2fe)
+- [How to generate PHP Flamegraphs](https://daniellockyer.com/php-flame-graphs/)
 
 ## Usage
 
