@@ -15,9 +15,9 @@ Flame graph visualization for [PHP](https://github.com/php) using [xDebug](https
     - [Contributing Guidelines](#contributing-guidelines)
     - [Development Documentation](#development-documentation)
   - [Requirements](#requirements)
-  - [How to](#how-to)
+  - [Sources](#sources)
+  - [Usage](#usage)
     - [Acquire](#acquire)
-    - [Configure](#configure)
     - [Execute](#execute)
     - [Update](#update)
     - [Terminate](#terminate)
@@ -49,25 +49,23 @@ Please see [DEVELOPMENT.md](./DEVELOPMENT.md).
 
 - Container orchestration solution (Docker, Podman, ContainerD)
   - [podman](https://podman.io/) and [podman-compose](https://github.com/containers/podman-compose) recommended
+- Linux Bash >= 5.x
+- Git
 
-## How to
+## Sources
+
+- [brendangregg/FlameGraph](https://github.com/brendangregg/FlameGraph)
+- [[Linux] Profiling —visualize program bottleneck with Flamegraph](https://medium.com/@techhara/profiling-visualize-program-bottleneck-with-flamegraph-3e0c5855b2fe)
+
+## Usage
 
 ### Acquire
 
 ```sh
 cd /path/to/your/projects
-git clone https://github.com/davidjeddy/php_flame_graph.git .
-cd php_flame_graph
-git clone https://github.com/brendangregg/FlameGraph.git ./services/shared/var/www/html/brendangregg/FlameGraph
-```
-
-### Configure
-
-(As needed) If a Podman machine is already running we need to restart to enable the volume mounts
-
-```sh
-podman machine stop || true
-podman machine start
+git clone https://github.com/davidjeddy/php_flame_graph.git davidjeddy/php_flame_graph
+cd davidjeddy/php_flame_graph
+./libs/install.sh
 ```
 
 ### Execute
@@ -79,25 +77,31 @@ podman-compose up -d
 podman container ls -a | grep php_flame
 ```
 
-Generate 10 requests.
+Generate a request
 
 ```sh
-for i in {1..10}
-do
-  curl --head "http://localhost:8080/?XDEBUG_TRIGGER=1"
-done
+curl --head "http://localhost:8080/?XDEBUG_TRIGGER=1"
+
 ```
 
-Finally, open a browser and visit `http://localhost:8080/graph.php` to view the output
+Convert xDebug stack trace to FlameGraph format
+
+```sh
+```
+
+Open stack trace in FlameGraph UI
+
+```sh
+```
 
 ### Update
+
+Update this project
 
 ```sh
 cd /path/to/your/projects
 git pull origin --force
-cd  ./services/shared/var/www/html/brendangregg/FlameGraph
-git pull origin --force
-cd ../../../../../../../
+
 ```
 
 ### Terminate

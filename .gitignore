@@ -440,4 +440,7 @@ composer.lock
 **/.keep
 
 ##### Ignore sub-projects
-brendangregg
+libs/brendangregg/FlameGraph
+*.folded
+trace.*
+*.xt*
